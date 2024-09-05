@@ -1,0 +1,231 @@
+
+[y ni value fix than Classification , y ni value continue than regression]
+
+
+First identify x y Than dependent or If y is contain continue (emp salary fix no hoy value)Regression
+
+
+Type of flower fix value (Classification)
+
+
+REGRESSION LINEAR
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import linear_model
+
+
+data=pd.read_csv("Salary.csv")
+print(data)
+
+
+x=np.array(data.YearsExperience).reshape(-1,1)
+y=np.array(data.Salary).reshape(-1,1)
+
+
+linear_rmodel=linear_model.LinearRegression()
+
+
+linear_rmodel.fit(x,y)
+
+
+xtest=x
+ytest_result=linear_rmodel.predict(xtest)
+print(xtest)
+print(y)
+print(ytest_result)
+
+
+plt.plot(x,y,color="red", label="Actual value")
+plt.scatter(x,ytest_result,color="blue", label="Pridicted value")
+plt.xlabel("XTEST")
+plt.ylabel("YTEST")
+plt.title("Predicted value of Year of Experience")
+plt.legend()
+plt.show()
+
+
+
+
+Categorical data
+
+
+import pandas as pd
+import numpy as np
+from sklearn import preprocessing
+import matplotlib.pyplot as plt
+from sklearn import linear_model
+
+
+data=pd.read_csv("insurance.csv")
+# print(data)
+
+
+labeled_data=preprocessing.LabelEncoder()
+x=np.array(labeled_data.fit_transform(data.sex)).reshape(-1,1)
+y=np.array(data.expenses).reshape(-1,1)
+
+
+linear_rmodel=linear_model.LinearRegression()
+
+
+linear_rmodel.fit(x,y)
+
+
+xtest=x
+ytest_result=linear_rmodel.predict(xtest)
+# print(xtest)
+# print(y)
+# print(ytest_result)
+
+
+plt.scatter(x,y,color="red", label="Actual value")
+plt.plot(x,ytest_result,color="blue", label="Pridicted value")
+plt.xlabel("Sex")
+plt.ylabel("expenses")
+plt.legend()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+Classification : Naive Byes Classifier
+
+from sklearn import model_selection
+import sklearn.datasets as db
+from sklearn.naive_bayes import GaussianNB
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+dataset = db.load_iris()
+
+
+x = np.array(dataset.data[:, 0]).reshape(-1,1)
+y = np.array(dataset.target).reshape(-1,1)
+
+
+xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.3)
+
+
+classifier = GaussianNB()
+
+
+classifier.fit(xtrain, ytrain)
+
+
+ytest_predicted = classifier.predict(xtest)
+
+
+print(xtest,ytest)
+print(ytest_predicted)
+
+
+plt.scatter(xtest,ytest)
+plt.scatter(xtest, ytest_predicted)
+plt.show()
+
+
+
+
+Heart Disease(Cholesterol)
+
+
+from ucimlrepo import fetch_ucirepo
+ 
+heart_disease =fetch_ucirepo(id=45)
+
+
+x = np.array(heart_disease.data.features.chol).reshape(-1,1)
+y = np.array(heart_disease.data.targets ).reshape(-1,1)
+
+
+ 
+print(x)
+ 
+
+
+print(y)
+
+
+
+
+xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.3)
+
+
+classifier = GaussianNB()
+classifier.fit(xtrain, ytrain)
+
+
+ytest_predicted = classifier.predict(xtest)
+
+
+print(xtest,ytest)
+print(ytest_predicted)
+
+
+plt.scatter(xtest,ytest)
+plt.scatter(xtest, ytest_predicted)
+plt.show()
+
+
+
+Wine(Alcohol)
+from ucimlrepo import fetch_ucirepo
+ 
+# fetch dataset
+wine =fetch_ucirepo(id=109)
+
+
+# data (as pandas dataframes)
+x = np.array( wine.data.features.Alcohol).reshape(-1,1)
+y = np.array(wine.data.targets ).reshape(-1,1)
+
+
+ 
+# metadata
+print(x)
+ 
+# variable information
+print(y)
+
+
+#Split the dataset into training & testing
+xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.3)
+
+
+#Load the classifier
+classifier = GaussianNB()
+
+
+#Train the model
+classifier.fit(xtrain, ytrain)
+
+
+#test the classifier
+ytest_predicted = classifier.predict(xtest)
+
+
+print(xtest,ytest)
+print(ytest_predicted)
+
+
+#Visualize the results
+plt.scatter(xtest,ytest)
+plt.scatter(xtest, ytest_predicted)
+plt.show()
+
+
+
+
+
